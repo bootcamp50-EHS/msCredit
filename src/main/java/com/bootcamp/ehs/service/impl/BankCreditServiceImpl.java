@@ -75,6 +75,7 @@ public class BankCreditServiceImpl implements IBankCreditService {
     // Metodo que actualiza el credito bancario
     @Override
     public Mono<BankCredit> updateCredit(BankCredit bankCredit) {
+        LOGGER.info("en BankCreditServiceImpl: {}", bankCredit);
         return bankCreditRepo.findById(bankCredit.getId())
                 .flatMap(accountExist -> {
                     accountExist.setPayment(bankCredit.getPayment());
