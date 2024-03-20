@@ -17,11 +17,15 @@ public class WebClientBankServiceImpl implements IWebClientBankService {
 
     @Qualifier("bankWebClient")
     private final WebClient bankWebClient;
+
+    @Qualifier("gatewayServiceUrl")
+    private final WebClient webClient;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(WebClientBankServiceImpl.class);
     @Override
     public Mono<BankDTO> findBankByCode(String codeBank) {
-        return bankWebClient.get()
-                .uri("/list/code/{codeBank}", codeBank)
+        return webClient.get()
+                .uri("/api/bank/list/code/{codeBank}", codeBank)
                 .retrieve()
                 .bodyToMono(BankDTO.class);
     }

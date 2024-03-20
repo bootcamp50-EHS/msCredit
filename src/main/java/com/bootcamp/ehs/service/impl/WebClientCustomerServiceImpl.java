@@ -17,6 +17,9 @@ public class WebClientCustomerServiceImpl implements IWebClientCustomerService {
     @Qualifier("customerWebClient")
     private final WebClient customerWebClient;
 
+    @Qualifier("gatewayServiceUrl")
+    private final WebClient webClient;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(WebClientCustomerServiceImpl.class);
 
 
@@ -24,7 +27,7 @@ public class WebClientCustomerServiceImpl implements IWebClientCustomerService {
     public Mono<CustomerDTO> findCustomerById(String id) {
         LOGGER.info("En findCustomerById: el id= "+ id);
 
-        return customerWebClient.get()
+        return webClient.get()
                 .uri("/api/customer/list/{id}", id)
                 .retrieve()
                 .bodyToMono(CustomerDTO.class);
